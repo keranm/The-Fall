@@ -124,7 +124,7 @@ var theGame = {
 		$('#theGame').append( '<p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
-
+		$('#theBall').css('top', height/2 )
 		// launch countdown window & then start game
 
 		theGame.startGame()
@@ -161,10 +161,10 @@ var theGame = {
     	var watchID = null;
   		var watchMove = null;
     	
-        var options = { frequency: 1 };
-       watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
+        var options = { frequency: 65 };
+        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
-        ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
+        //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
 	},
  
@@ -184,28 +184,28 @@ var theGame = {
                             'Acceleration Z: ' + acceleration.z + '<br />' + 
                             'Timestamp: '      + acceleration.timestamp + '<br />';
 
-    	/*
+    	
     	
     	if( acceleration.x < 0 && objPosition.left <= rightBoundary ) {
     		myObj.animate({
     			left:'+=2'
-    		},3);
+    		},30);
     	} else if( acceleration.x > 0 && objPosition.left > leftBoundary ) {
     		myObj.animate({
     			left:'-=2'
-    		},3);
+    		},30);
     	}
     	if( acceleration.y < 0 && objPosition.top > topBoundary ) {
     		myObj.animate({
     			top:'-=2'
-    		},3);
+    		},30);
     	} else if(acceleration.y > 0 && objPosition.top <= bottomBoundary ) {
     		myObj.animate({
     			top:'+=2'
-    		},3);
+    		},30);
     	}
 
-    	*/
+    	
     },
 
     onError : function() {
