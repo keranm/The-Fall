@@ -141,7 +141,7 @@ var theGame = {
 		if( myTop >= ( height - myHeight) ) {
 			// game over
 			console.log('Game over')
-			clearInterval(ballInterval)
+			//clearInterval(ballInterval)
 			ballInterval = 0
 
 			appEngine.hideAll()
@@ -161,10 +161,10 @@ var theGame = {
     	var watchID = null;
   		var watchMove = null;
     	
-        var options = { frequency: 65 };
+        var options = { frequency: 55 };
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
-        ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
+        //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
 	},
  
@@ -203,6 +203,8 @@ var theGame = {
 
     	element.innerHTML = theHTML;
     	
+    	// update the ball movement
+    	theGame.theBall()
     },
 
     onError : function() {
