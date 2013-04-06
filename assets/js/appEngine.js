@@ -98,7 +98,7 @@ var appEngine = {
 		$('#init .play_button_stage button').css('opacity', 0)
 
 		// reset vars
-		audio = setAttribute("src", '')
+		//audio = setAttribute("src", ' ')
 		heightOfInit = ''
 		heightOfButtonStage = ''
 	},
