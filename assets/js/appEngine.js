@@ -186,8 +186,6 @@ var theGame = {
         element.innerHTML = 'Acceleration X: ' + xMove + '<br />' +
                             'Acceleration Y: ' + yMove + '<br />' +
                             'Acceleration Z: ' + zMove + '<br />';
-
-    	/*
     	
     	if( xMove < 0 && objPosition.left <= rightBoundary ) {
     		$('#theBall').css('left', objPosition.left+xMove )
@@ -199,7 +197,7 @@ var theGame = {
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
     		$('#theBall').css('left', objPosition.top+yMove )
     	}
-*/
+
     	
     },
 
