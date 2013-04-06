@@ -113,7 +113,7 @@ button {
 }
 
 #init .play_button_stage {
-	margin-top: 60px;
+	margin-top: 50px;
 	display: block;
 	width: 100%;
 	text-align: center;
@@ -121,4 +121,8 @@ button {
 
 #init .play_button_stage button {
 	opacity: 0;
+}
+
+#init .play_button_stage button.settings{
+	margin-top: 10px;
 }
