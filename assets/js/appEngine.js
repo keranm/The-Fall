@@ -9,6 +9,9 @@ var height = window.innerHeight // use native JS not any plugin to get the right
 var loadingOffset = 1000
 
 
+var ballInterval = 0
+var ballMilliSeconds = 1//65
+
 $(document).ready(function(){
 
 	// okay lets go
@@ -59,6 +62,7 @@ var appEngine = {
 
 		// add listeners to the buttons
 		$('#init .play_button_stage button').on('click', function() { audio.play() })//document.getElementById('appAudio').play() })
+		$('#init .play_button_stage button.play').on('click', function(){ appEngine.showTheGame() })
 
 		// animate the heading up and show the play button
 		setTimeout(function() { 
@@ -76,8 +80,123 @@ var appEngine = {
 
 	// function to hide every screen
 	hideAll : function() {
+		// clear any intervals
+		window.clearInterval()
+
 		$('#init').css('display', 'none')
+		$('#theGame').css('display', 'none')
+
+		// reset the game screen
+		$('#theGame').html('')
+
+		// make sure the buttons hare idden
+		$('#init .play_button_stage button').css('opacity', 0)
 	},
+
+	showTheGame : function() {
+		// make sure everything is hidden
+		appEngine.hideAll()
+
+		// set the game screen to show
+		$('#theGame').css('display', 'block')
+
+		theGame.init()
+		// slide out the initScreen
+
+		// reveal the game screen
+
+
+	}, // the game
 	
 } // this is the appEngine
+
+//
+// game items
+//
+var theGame = {
+
+	init : function() {
+		$('#theGame').append( '<i id="theBall" class="icon-isight icon2x"></i>' )
+		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
+		$('#theBall').css('top', 10 )
+
+		// launch countdown window & then start game
+
+		theGame.startGame()
+		
+	},
+
+	theBall : function() {
+
+		// where am I?
+		var myHeight = $('#theBall').height()
+		var myTop = parseInt($('#theBall').css('top'), 10)
+
+		// am I at the bottom?
+		if( myTop >= ( height - myHeight) ) {
+			// game over
+			console.log('Game over')
+			clearInterval(ballInterval)
+			ballInterval = 0
+
+			appEngine.hideAll()
+			appEngine.showInitScreen()
+			return true
+		} else {
+			// move me
+			console.log("move")
+			console.log(myTop + ' height '+ (height - myTop))
+			$('#theBall').css('top', myTop + 1)
+		}
+		
+	},
+
+	startGame : function() {
+    	
+    	var watchID = null;
+  		var watchMove = null;
+    	
+        var options = { frequency: 5 };
+        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
+
+        ballInterval = setInterval(function() { theGame.fallLogic() }, ballMilliSeconds) 
+
+	},
+ 
+    // moveObject
+    moveBall : function(acceleration) {
+    	var myObj = $('#theBall');
+    	var wall = $('#theGame');
+    	var objPosition = myObj.position();
+    	var leftBoundary = 0;
+    	var topBoundary = 0;
+    	var rightBoundary = wall.width() - myObj.width() - 10; // 10 represents the 10px for the margin
+    	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
+    	
+    	if( acceleration.x < 0 && objPosition.left <= rightBoundary ) {
+    		myObj.animate({
+    			left:'+=2'
+    		},3);
+    	} else if( acceleration.x > 0 && objPosition.left > leftBoundary ) {
+    		myObj.animate({
+    			left:'-=2'
+    		},3);
+    	}
+    	if( acceleration.y < 0 && objPosition.top > topBoundary ) {
+    		myObj.animate({
+    			top:'-=2'
+    		},3);
+    	} else if(acceleration.y > 0 && objPosition.top <= bottomBoundary ) {
+    		myObj.animate({
+    			top:'+=2'
+    		},3);
+    	}
+    },
+
+    onError : function() {
+        alert('onError!');
+    }
+
+
+} // end the ball
 

@@ -22,6 +22,8 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
  src: url('../fonts/mfglabs/mfglabsiconset.ttf') format('truetype');
 }
 
+i {font-weight: normal;}
+
 body {
 	font-family: nunito;
 	font-size: 20px;
@@ -150,3 +152,17 @@ button:active {
 	font-size: 12px;
 }
 
+/*
+/*    STYLES FOR THE
+/*        game screen
+/*                                ****/
+
+#game {
+
+}
+
+#theBall {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
