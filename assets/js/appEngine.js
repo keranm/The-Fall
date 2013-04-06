@@ -121,7 +121,7 @@ var appEngine = {
 var theGame = {
 
 	init : function() {
-		$('#theGame').append( '<i id="theBall" class="icon-isight icon2x"></i>' )
+		$('#theGame').append( '<p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
 
@@ -162,7 +162,7 @@ var theGame = {
   		var watchMove = null;
     	
         var options = { frequency: 1 };
-        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
+       watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
         ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
@@ -177,6 +177,14 @@ var theGame = {
     	var topBoundary = 0;
     	var rightBoundary = wall.width() - myObj.width() - 10; // 10 represents the 10px for the margin
     	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
+
+    	var element = document.getElementById('accelerometer');
+        element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
+                            'Acceleration Y: ' + acceleration.y + '<br />' +
+                            'Acceleration Z: ' + acceleration.z + '<br />' + 
+                            'Timestamp: '      + acceleration.timestamp + '<br />';
+
+    	/*
     	
     	if( acceleration.x < 0 && objPosition.left <= rightBoundary ) {
     		myObj.animate({
@@ -196,6 +204,8 @@ var theGame = {
     			top:'+=2'
     		},3);
     	}
+
+    	*/
     },
 
     onError : function() {
