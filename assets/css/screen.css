@@ -1,0 +1,99 @@
+/* reset from: https://github.com/iainspad/strppd.css */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;font-weight:inherit;font-style:inherit;font-family:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}*{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-font-smoothing:antialiased}a{text-decoration:none}body{line-height:1}ol,ul{list-style-type:none}table{border-collapse:collapse;border-spacing:0}caption,th,td{text-align:left;font-weight:normal}input:not([type="checkbox"]),textarea{-webkit-appearance:none;-moz-appearance:none}input,textarea{-webkit-border-radius:0;-moz-border-radius:0}button,input[type="button"],input[type="submit"]{background:0}:required{-webkit-box-shadow:none;-moz-box-shadow:none;-o-box-shadow:none;-ms-box-shadow:none;box-shadow:none}em,i{font-style:italic}strong,b{font-weight:bold}u{text-decoration:underline}pre,code{font-family:Monaco,Courier,monospace}pre{white-space:pre;white-space:pre-wrap;white-space:pre-line;word-wrap:break-word}blockquote,q{quotes:"" ""}blockquote:before,blockquote:after,q:before,q:after,{content:""}a,input[type="submit"],input[type="button"],button,label[for]{cursor:pointer}img{-ms-interpolation-mode:bicubic}
+
+/* fonts */
+@font-face{
+ font-family: nunito; 
+ src: url('../fonts/nunito/nunito.ttf') format('truetype');
+}
+
+@font-face{
+ font-family: nunito-light; 
+ src: url('../fonts/nunito/nunito-light.ttf') format('truetype');
+}
+
+@font-face{
+ font-family: nunito-bold; 
+ src: url('../fonts/nunito/nunito-bold.ttf') format('truetype');
+}
+
+@font-face{
+ font-family: mfg_icons; 
+ src: url('../fonts/mfglabs/mfglabsiconset.ttf') format('truetype');
+}
+
+body {
+	font-family: nunito;
+	font-size: 20px;
+	color: white;
+	letter-spacing: -1px;
+
+	background-color: #00AEED;
+}
+
+.light {
+	font-family: nunito-light;
+	font-weight: lighter;
+}
+
+strong {
+	font-family: nunito-bold;
+	font-weight: bold;
+}
+
+.page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+h1 {
+	font-size: 36px;
+	line-height: 40px;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+h2 {
+	font-size: 24px;
+	line-height: 30px;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+p {
+	font-size: 18px;
+	line-height: 20px;
+}
+
+/*
+/*    STYLES FOR THE
+/*        init screen
+/*                                ****/
+
+#init {
+	position: absolute;
+}
+
+#init .footer, #init .init_screen {
+	position: absolute;
+	width: 100%;
+	display: block;
+}
+
+#init h1 {
+	font-size: 72px;
+	line-height: 80px;
+	letter-spacing: 2px;
+}
+
+#init p {
+	font-size: 16px;
+	line-height: 30px;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
