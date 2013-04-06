@@ -124,7 +124,7 @@ var theGame = {
 		$('#theGame').append( '<p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
-		$('#theBall').css('top', height/2 )
+		//$('#theBall').css('top', height/2 )
 		// launch countdown window & then start game
 
 		theGame.startGame()
@@ -164,7 +164,7 @@ var theGame = {
         var options = { frequency: 65 };
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
-        //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
+        ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
 	},
  
@@ -192,10 +192,10 @@ var theGame = {
     		theHTML += 'Move to: left'
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('top', objPosition.top + (yMove*-1) )// convert to positive number
+    		$('#theBall').css('top', objPosition.top-yMove )
     		theHTML += 'Move to: top'
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('top', objPosition.top-yMove )
+    		$('#theBall').css('top', objPosition.top + (yMove*-1) )// convert to positive number
     		theHTML += 'Move to: bottom'
     	} else {
     		theHTML += 'Move to: stay put'
