@@ -19,10 +19,7 @@ $(document).ready(function(){
 
 }) // end of the get ready
 */
-window.addEventListener('load', function(){
-    	// Wait for PhoneGap to load
-   		document.addEventListener("appEngine.init", onDeviceReady, false);
-    }, false);
+document.addEventListener("deviceready", appEngine.init, false);
 
 
 var appEngine = {
