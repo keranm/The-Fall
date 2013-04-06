@@ -179,30 +179,21 @@ var theGame = {
     	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
 
     	var element = document.getElementById('accelerometer');
-        element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
-                            'Acceleration Y: ' + acceleration.y + '<br />' +
-                            'Acceleration Z: ' + acceleration.z + '<br />' + 
-                            'Timestamp: '      + acceleration.timestamp + '<br />';
+        element.innerHTML = 'Acceleration X: ' + round(acceleration.x) + '<br />' +
+                            'Acceleration Y: ' + round(acceleration.y) + '<br />' +
+                            'Acceleration Z: ' + round(acceleration.z) + '<br />';
 
     	
     	
-    	if( acceleration.x < 0 && objPosition.left <= rightBoundary ) {
-    		myObj.animate({
-    			left:'+=2'
-    		},30);
-    	} else if( acceleration.x > 0 && objPosition.left > leftBoundary ) {
-    		myObj.animate({
-    			left:'-=2'
-    		},30);
+    	if( round(acceleration.x) < 0 && objPosition.left <= rightBoundary ) {
+    		$('#theBall').css('left', objPosition.left+round(acceleration.x) )
+    	} else if( round(acceleration.x) > 0 && objPosition.left > leftBoundary ) {
+    		$('#theBall').css('left', objPosition.left-round(acceleration.x) )
     	}
-    	if( acceleration.y < 0 && objPosition.top > topBoundary ) {
-    		myObj.animate({
-    			top:'-=2'
-    		},30);
-    	} else if(acceleration.y > 0 && objPosition.top <= bottomBoundary ) {
-    		myObj.animate({
-    			top:'+=2'
-    		},30);
+    	if( round(acceleration.y) < 0 && objPosition.top > topBoundary ) {
+    		$('#theBall').css('left', objPosition.top-round(acceleration.y) )
+    	} else if(round(acceleration.y) > 0 && objPosition.top <= bottomBoundary ) {
+    		$('#theBall').css('left', objPosition.top+round(acceleration.y) )
     	}
 
     	
