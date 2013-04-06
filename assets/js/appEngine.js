@@ -10,7 +10,7 @@ var loadingOffset = 1000
 
 
 var ballInterval = 0
-var ballMilliSeconds = 1//65
+var ballMilliSeconds = 65
 
 $(document).ready(function(){
 
@@ -161,7 +161,7 @@ var theGame = {
     	var watchID = null;
   		var watchMove = null;
     	
-        var options = { frequency: 5 };
+        var options = { frequency: 1 };
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
         ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
