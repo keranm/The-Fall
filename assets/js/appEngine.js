@@ -185,7 +185,7 @@ var theGame = {
                       'Y: ' + yMove + ' '+bottomBoundary+'<br />'
     	
     	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
-    		$('#theBall').css('left', objPosition.left + xMove )
+    		$('#theBall').css('left', objPosition.left + (xMove*-1) )
     		theHTML += 'Move to: right'
     	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
     		$('#theBall').css('left', objPosition.left - xMove )
@@ -195,7 +195,7 @@ var theGame = {
     		$('#theBall').css('top', objPosition.top-yMove )
     		theHTML += 'Move to: top'
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('top', objPosition.top+yMove )
+    		$('#theBall').css('top', objPosition.top + (yMove*-1) )
     		theHTML += 'Move to: bottom'
     	} else {
     		theHTML += 'Move to: stay put'
