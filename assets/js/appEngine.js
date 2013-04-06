@@ -171,33 +171,37 @@ var theGame = {
     // moveObject
     moveBall : function(acceleration) {
     	var myObj = $('#theBall');
-    	var wall = $('#theGame');
     	var objPosition = myObj.position();
     	var leftBoundary = 0;
     	var topBoundary = 0;
-    	var rightBoundary = wall.width() - myObj.width() - 10; // 10 represents the 10px for the margin
-    	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
+    	var rightBoundary = width - myObj.width() // 10 represents the 10px for the margin
+    	var bottomBoundary = height - myObj.height() // 10 represents the 10px for the margin
 
     	var xMove = Math.round(acceleration.x)
     	var yMove = Math.round(acceleration.y)
-    	var zMove = Math.round(acceleration.z)
 
     	var element = document.getElementById('accelerometer');
-        element.innerHTML = 'Acceleration X: ' + xMove + '<br />' +
-                            'Acceleration Y: ' + yMove + '<br />' +
-                            'Acceleration Z: ' + zMove + '<br />';
+        var theHTML = 'X: ' + xMove + ' '+rightBoundary+'<br />' +
+                      'Y: ' + yMove + ' '+bottomBoundary+'<br />'
     	
-    	if( xMove < 0 && objPosition.left <= rightBoundary ) {
-    		$('#theBall').css('left', objPosition.left+xMove )
+    	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
+    		$('#theBall').css('left', objPosition.left + xMove )
+    		theHTML += 'Move to: right'
     	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
-    		$('#theBall').css('left', objPosition.left-xMove )
+    		$('#theBall').css('left', objPosition.left - xMove )
+    		theHTML += 'Move to: left'
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
     		$('#theBall').css('top', objPosition.top-yMove )
+    		theHTML += 'Move to: top'
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
     		$('#theBall').css('top', objPosition.top+yMove )
+    		theHTML += 'Move to: bottom'
+    	} else {
+    		theHTML += 'Move to: stay put'
     	}
 
+    	element.innerHTML = theHTML;
     	
     },
 
