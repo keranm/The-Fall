@@ -192,10 +192,10 @@ var theGame = {
     		theHTML += 'Move to: left'
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('top', objPosition.top-yMove )
+    		$('#theBall').css('top', objPosition.top - (yMove*-1) )
     		theHTML += 'Move to: top'
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('top', objPosition.top + (yMove*-1) )// convert to positive number
+    		$('#theBall').css('top', objPosition.top + yMove )// convert to positive number
     		theHTML += 'Move to: bottom'
     	} else {
     		theHTML += 'Move to: stay put'
