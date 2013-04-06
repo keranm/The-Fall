@@ -17,6 +17,9 @@
     <preference name="webviewbounce" value="false" />
 
     <preference name="prerendered-icon" value="true" />
+
+    <icon src="icon.png" />
+    <gap:splash src="splash.png" />
     
     <!-- 
     <icon src="icon.png" />

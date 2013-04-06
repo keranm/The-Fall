@@ -51,7 +51,7 @@ var appEngine = {
 		setTimeout(function() { 
 			console.log('show')
 			$('#init .init_screen').animate({
-			    top: (height/2) - ( heightOfInit )
+			    top: (height/1.8) - ( heightOfInit )
 			  }, 300, "ease-out", function() {
 			    // Animation complete show the button
 			    $('#init .play_button_stage button').animate({
