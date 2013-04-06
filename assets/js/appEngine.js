@@ -12,6 +12,9 @@ var audio = new Audio()
 var heightOfInit = ''
 var heightOfButtonStage = ''
 
+var watchID = null
+var watchMove = null
+
 var ballInterval = 0
 var ballMilliSeconds = 65
 
@@ -101,6 +104,7 @@ var appEngine = {
 		//audio = setAttribute("src", ' ')
 		heightOfInit = ''
 		heightOfButtonStage = ''
+		watchMove = null
 	},
 
 	showTheGame : function() {
@@ -152,6 +156,7 @@ var theGame = {
 			myTop = 0 // reset
 			ballInterval = 0
 
+			navigator.accelerometer.clearWatch(watchMove)
 			appEngine.hideAll()
 			appEngine.showInitScreen()
 			return true
@@ -170,8 +175,6 @@ var theGame = {
 
 	startGame : function() {
     	console.log('start game')
-    	var watchID = null
-  		var watchMove = null
     	
         var options = { frequency: 10 } //55 }
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options)
