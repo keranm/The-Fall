@@ -140,7 +140,7 @@ var theGame = {
 
 		// where am I?
 		var myHeight = $('#theBall').height()
-		var myPos = myObj.position()
+		var myPos = $('#theBall').position()
 
 		// am I at the bottom?
 		if( myPos.top >= ( height - myHeight) ) {
