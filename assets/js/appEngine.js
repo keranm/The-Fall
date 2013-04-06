@@ -142,6 +142,9 @@ var theGame = {
 			// game over
 			console.log('Game over')
 			//clearInterval(ballInterval)
+			$('#theBall').remove() // take the ball off the stage
+			myHeight = 0 // reset
+			myTop = 0 // reset
 			ballInterval = 0
 
 			appEngine.hideAll()
@@ -158,11 +161,11 @@ var theGame = {
 
 	startGame : function() {
     	console.log('start game')
-    	var watchID = null;
-  		var watchMove = null;
+    	var watchID = null
+  		var watchMove = null
     	
-        var options = { frequency: 55 };
-        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
+        var options = { frequency: 10 } //55 }
+        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options)
 
         //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
@@ -170,17 +173,17 @@ var theGame = {
  
     // moveObject
     moveBall : function(acceleration) {
-    	var myObj = $('#theBall');
-    	var objPosition = myObj.position();
-    	var leftBoundary = 0;
-    	var topBoundary = 0;
+    	var myObj = $('#theBall')
+    	var objPosition = myObj.position()
+    	var leftBoundary = 0
+    	var topBoundary = 0
     	var rightBoundary = width - myObj.width() // 10 represents the 10px for the margin
     	var bottomBoundary = height - myObj.height() // 10 represents the 10px for the margin
 
     	var xMove = Math.round(acceleration.x)
     	var yMove = Math.round(acceleration.y)
 
-    	var element = document.getElementById('accelerometer');
+    	var element = document.getElementById('accelerometer')
         var theHTML = 'X: ' + xMove + ' '+rightBoundary+'<br />' +
                       'Y: ' + yMove + ' '+bottomBoundary+'<br />'
     	
