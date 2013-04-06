@@ -163,7 +163,7 @@ var theGame = {
 		}
 
 		var element = document.getElementById('ballDetails')
-        var theHTML = 'Ball Height ' + myHeight + '<br />' +
+        element.innerHTML = 'Ball Height ' + myHeight + '<br />' +
                       'Ball Top ' + myPos.top + ' Ball Left '+myPos.left+'<hr />'
 		
 	},
