@@ -19,8 +19,11 @@ $(document).ready(function(){
 
 }) // end of the get ready
 */
-document.addEventListener("deviceready", appEngine.init, false);
+document.addEventListener("deviceready", onDeviceReady, false);
 
+function onDeviceReady() {
+	appEngine.init()  
+}
 
 var appEngine = {
 
