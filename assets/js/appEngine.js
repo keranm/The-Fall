@@ -178,24 +178,28 @@ var theGame = {
     	var rightBoundary = wall.width() - myObj.width() - 10; // 10 represents the 10px for the margin
     	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
 
+    	var xMove = round(acceleration.x)
+    	var yMove = round(acceleration.y)
+    	var zMove = round(acceleration.z)
+
     	var element = document.getElementById('accelerometer');
-        element.innerHTML = 'Acceleration X: ' + round(acceleration.x) + '<br />' +
-                            'Acceleration Y: ' + round(acceleration.y) + '<br />' +
-                            'Acceleration Z: ' + round(acceleration.z) + '<br />';
+        element.innerHTML = 'Acceleration X: ' + xMove + '<br />' +
+                            'Acceleration Y: ' + yMove + '<br />' +
+                            'Acceleration Z: ' + zMove + '<br />';
 
+    	/*
     	
-    	
-    	if( round(acceleration.x) < 0 && objPosition.left <= rightBoundary ) {
-    		$('#theBall').css('left', objPosition.left+round(acceleration.x) )
-    	} else if( round(acceleration.x) > 0 && objPosition.left > leftBoundary ) {
-    		$('#theBall').css('left', objPosition.left-round(acceleration.x) )
+    	if( xMove < 0 && objPosition.left <= rightBoundary ) {
+    		$('#theBall').css('left', objPosition.left+xMove )
+    	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
+    		$('#theBall').css('left', objPosition.left-xMove )
     	}
-    	if( round(acceleration.y) < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('left', objPosition.top-round(acceleration.y) )
-    	} else if(round(acceleration.y) > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('left', objPosition.top+round(acceleration.y) )
+    	if( yMove < 0 && objPosition.top > topBoundary ) {
+    		$('#theBall').css('left', objPosition.top-yMove )
+    	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
+    		$('#theBall').css('left', objPosition.top+yMove )
     	}
-
+*/
     	
     },
 
