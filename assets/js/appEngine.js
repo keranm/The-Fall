@@ -40,11 +40,25 @@ var appEngine = {
 		// show the screen
 		$('#init').css('display', 'block')
 
-		// place the footer
+		// set elements
 		$('#init .footer').css('top', height - $('#init .footer').height())
+		var heightOfInit = $('#init .init_screen').height()
+		var heightOfButtonStage =  $('#init .play_button_stage button').height()
+		$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
+		$('#init .play_button_stage button').css('width', width - 40 )
 
-		// place the init_screen
-		$('#init .init_screen').css('top', (height/2) - $('#init .init_screen').height())
+		// animate the heading up and show the play button
+		setTimeout(function() { 
+			console.log('show')
+			$('#init .init_screen').animate({
+			    top: (height/2) - ( heightOfInit )
+			  }, 300, "ease-out", function() {
+			    // Animation complete show the button
+			    $('#init .play_button_stage button').animate({
+				    opacity: 1
+				  }, 300, "ease-out")
+			  });
+		}, loadingOffset)
 	},
 
 	// function to hide every screen

@@ -69,6 +69,20 @@ p {
 	line-height: 20px;
 }
 
+button {
+	border-radius: 6px;
+	border: none;
+	background-color: white;
+	color: #00AEED;
+
+	font-size: 28px;
+	font-family: nunito-bold;
+	font-weight: bolder;
+	line-height: 38px;
+	height: 50px;
+}
+
+
 /*
 /*    STYLES FOR THE
 /*        init screen
@@ -96,4 +110,15 @@ p {
 	display: block;
 	width: 100%;
 	text-align: center;
+}
+
+#init .play_button_stage {
+	margin-top: 60px;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+#init .play_button_stage button {
+	opacity: 0;
 }
