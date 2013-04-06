@@ -11,13 +11,18 @@ var loadingOffset = 1000
 
 var ballInterval = 0
 var ballMilliSeconds = 1//65
-
+/*
 $(document).ready(function(){
 
 	// okay lets go
 	appEngine.init()
 
 }) // end of the get ready
+*/
+window.addEventListener('load', function(){
+    	// Wait for PhoneGap to load
+   		document.addEventListener("appEngine.init", onDeviceReady, false);
+    }, false);
 
 
 var appEngine = {

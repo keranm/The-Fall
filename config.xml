@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.keranmckenzie.ddgames.thefall"
         versionCode="10" 
-        version   = "0.0.006">
+        version   = "0.0.007">
 
     <name>The Fall</name>
 
@@ -16,12 +16,12 @@
     <preference name="orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
 
-    <preference name="prerendered-icon" value="true" />
 
     <icon src="icon.png" />
     <gap:splash src="splash.png" />
     
     <!-- 
+    <preference name="prerendered-icon" value="true" />
     <icon src="icon.png" />
     <icon src="icons/ios/icon.png" width="57" height="57" />
     <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
