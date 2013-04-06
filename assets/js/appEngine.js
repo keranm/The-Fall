@@ -8,6 +8,9 @@ var width = window.innerWidth
 var height = window.innerHeight // use native JS not any plugin to get the right sizes
 var loadingOffset = 1000
 
+var audio = new Audio()
+var heightOfInit = ''
+var heightOfButtonStage = ''
 
 var ballInterval = 0
 var ballMilliSeconds = 65
@@ -51,7 +54,6 @@ var appEngine = {
 		$('#init .footer p').html( messages.init_footer )
 
 		// setup the audio
-		var audio = new Audio()
 		audio.setAttribute("src","assets/audio/button_click.mp3")
 		audio.load() // required for 'older' browsers
 
@@ -60,8 +62,8 @@ var appEngine = {
 
 		// set elements
 		$('#init .footer').css('top', height - $('#init .footer').height())
-		var heightOfInit = $('#init .init_screen').height()
-		var heightOfButtonStage =  $('#init .play_button_stage button').height()
+		heightOfInit = $('#init .init_screen').height()
+		heightOfButtonStage =  $('#init .play_button_stage button').height()
 		$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
 		$('#init .play_button_stage button').css('width', width - 40 )
 
@@ -85,17 +87,20 @@ var appEngine = {
 
 	// function to hide every screen
 	hideAll : function() {
-		// clear any intervals
-		window.clearInterval()
 
 		$('#init').css('display', 'none')
 		$('#theGame').css('display', 'none')
 
 		// reset the game screen
-		$('#theGame').html('')
+		$('#theGame').html(' ')
 
 		// make sure the buttons hare idden
 		$('#init .play_button_stage button').css('opacity', 0)
+
+		// reset vars
+		audio = setAttribute("src", '')
+		heightOfInit = ''
+		heightOfButtonStage = ''
 	},
 
 	showTheGame : function() {
@@ -121,7 +126,7 @@ var appEngine = {
 var theGame = {
 
 	init : function() {
-		$('#theGame').append( '<p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
+		$('#theGame').append( '<p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
 		//$('#theBall').css('top', height/2 )
@@ -135,10 +140,10 @@ var theGame = {
 
 		// where am I?
 		var myHeight = $('#theBall').height()
-		var myTop = parseInt($('#theBall').css('top'), 10)
+		var myPos = myObj.position()
 
 		// am I at the bottom?
-		if( myTop >= ( height - myHeight) ) {
+		if( myPos.top >= ( height - myHeight) ) {
 			// game over
 			console.log('Game over')
 			//clearInterval(ballInterval)
@@ -153,9 +158,13 @@ var theGame = {
 		} else {
 			// move me
 			console.log("move")
-			console.log(myTop + ' height '+ (height - myTop))
-			$('#theBall').css('top', myTop + 1)
+			console.log(myPos.top + ' height '+ (height - myPos.top))
+			$('#theBall').css('top', myPos.top + 1)
 		}
+
+		var element = document.getElementById('ballDetails')
+        var theHTML = 'Ball Height ' + myHeight + '<br />' +
+                      'Ball Top ' + myPos.top + ' Ball Left '+myPos.left+'<hr />'
 		
 	},
 
@@ -189,22 +198,22 @@ var theGame = {
     	
     	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
     		$('#theBall').css('left', objPosition.left + (xMove*-1) ) // convert to positive number
-    		theHTML += 'Move to: right'
+    		theHTML += 'Move to: right '
     	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
     		$('#theBall').css('left', objPosition.left - xMove )
-    		theHTML += 'Move to: left'
+    		theHTML += 'Move to: left '
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
     		$('#theBall').css('top', objPosition.top - (yMove*-1) )
-    		theHTML += 'Move to: top'
+    		theHTML += 'Move to: top '
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
     		$('#theBall').css('top', objPosition.top + yMove )// convert to positive number
-    		theHTML += 'Move to: bottom'
+    		theHTML += 'Move to: bottom '
     	} else {
-    		theHTML += 'Move to: stay put'
+    		theHTML += 'Move to: stay put '
     	}
 
-    	element.innerHTML = theHTML;
+    	element.innerHTML = theHTML+'<hr />';
     	
     	// update the ball movement
     	theGame.theBall()
