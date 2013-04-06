@@ -185,17 +185,17 @@ var theGame = {
                       'Y: ' + yMove + ' '+bottomBoundary+'<br />'
     	
     	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
-    		$('#theBall').css('left', objPosition.left + (xMove*-1) )
+    		$('#theBall').css('left', objPosition.left + (xMove*-1) ) // convert to positive number
     		theHTML += 'Move to: right'
     	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
     		$('#theBall').css('left', objPosition.left - xMove )
     		theHTML += 'Move to: left'
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('top', objPosition.top-yMove )
+    		$('#theBall').css('top', objPosition.top + (yMove*-1) )// convert to positive number
     		theHTML += 'Move to: top'
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('top', objPosition.top + (yMove*-1) )
+    		$('#theBall').css('top', objPosition.top-yMove )
     		theHTML += 'Move to: bottom'
     	} else {
     		theHTML += 'Move to: stay put'
