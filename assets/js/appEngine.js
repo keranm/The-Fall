@@ -11,14 +11,14 @@ var loadingOffset = 1000
 
 var ballInterval = 0
 var ballMilliSeconds = 1//65
-/*
+
 $(document).ready(function(){
 
 	// okay lets go
 	appEngine.init()
 
 }) // end of the get ready
-*/
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
@@ -157,14 +157,14 @@ var theGame = {
 	},
 
 	startGame : function() {
-    	
+    	console.log('start game')
     	var watchID = null;
   		var watchMove = null;
     	
         var options = { frequency: 5 };
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options); 
 
-        ballInterval = setInterval(function() { theGame.fallLogic() }, ballMilliSeconds) 
+        ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
 	},
  
