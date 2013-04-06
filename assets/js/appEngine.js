@@ -31,11 +31,21 @@ var appEngine = {
 		$('.page').css('width', width)
 		$('.page').css('height', height)
 
+		appEngine.showInitScreen()
+
+	},
+
+	showInitScreen : function() {
+
 		// setup the messages for the init screen
 		$('#init .title').html( messages.init_title )
 		$('#init .subtitle').html( messages.init_subtitle )
 		$('#init .footer p').html( messages.init_footer )
 
+		// setup the audio
+		var audio = new Audio()
+		audio.setAttribute("src","assets/audio/button_click.mp3")
+		audio.load() // required for 'older' browsers
 
 		// show the screen
 		$('#init').css('display', 'block')
@@ -46,6 +56,9 @@ var appEngine = {
 		var heightOfButtonStage =  $('#init .play_button_stage button').height()
 		$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
 		$('#init .play_button_stage button').css('width', width - 40 )
+
+		// add listeners to the buttons
+		$('#init .play_button_stage button').on('click', function() { audio.play() })//document.getElementById('appAudio').play() })
 
 		// animate the heading up and show the play button
 		setTimeout(function() { 

@@ -5,6 +5,6 @@ var messages = {
 
 	init_subtitle : 'A Daddy Daughter Game',
 
-	init_footer : '&copy 2013 Keran McKenzie (Daddy Daughter Games)',
+	init_footer : '&copy 2013 Keran McKenzie ( Daddy Daughter Games )',
 
 } // end of the messages
