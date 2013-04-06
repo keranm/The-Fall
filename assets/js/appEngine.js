@@ -158,6 +158,9 @@ var theGame = {
 			myTop = 0 // reset
 			ballInterval = 0
 
+			delete myHeight
+			delete myPos
+
 			navigator.accelerometer.clearWatch(watchMove)
 			appEngine.hideAll()
 			appEngine.showInitScreen()
@@ -170,7 +173,7 @@ var theGame = {
 		}
 
 		var element = document.getElementById('ballDetails')
-        element.innerHTML = 'Ball Height ' + myHeight + '<br />' +
+        element.innerHTML = 'Ball Height ' + myHeight + ' height '+ height + '<br />' +
                       'Ball Top ' + myPos.top + ' Ball Left '+myPos.left+'<hr />'
 		
 	},
