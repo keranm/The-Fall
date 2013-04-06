@@ -14,6 +14,7 @@ var heightOfButtonStage = ''
 
 var watchID = null
 var watchMove = null
+var playGame = null
 
 var ballInterval = 0
 var ballMilliSeconds = 65
@@ -105,6 +106,7 @@ var appEngine = {
 		heightOfInit = ''
 		heightOfButtonStage = ''
 		watchMove = null
+		playGame = null
 	},
 
 	showTheGame : function() {
@@ -114,7 +116,7 @@ var appEngine = {
 		// set the game screen to show
 		$('#theGame').css('display', 'block')
 
-		theGame.init()
+		playGame = theGame.init()
 		// slide out the initScreen
 
 		// reveal the game screen
