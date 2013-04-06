@@ -178,9 +178,9 @@ var theGame = {
     	var rightBoundary = wall.width() - myObj.width() - 10; // 10 represents the 10px for the margin
     	var bottomBoundary = wall.height() - myObj.height() - 10; // 10 represents the 10px for the margin
 
-    	var xMove = floor(acceleration.x)
-    	var yMove = floor(acceleration.y)
-    	var zMove = floor(acceleration.z)
+    	var xMove = Math.round(acceleration.x)
+    	var yMove = Math.round(acceleration.y)
+    	var zMove = Math.round(acceleration.z)
 
     	var element = document.getElementById('accelerometer');
         element.innerHTML = 'Acceleration X: ' + xMove + '<br />' +
