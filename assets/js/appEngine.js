@@ -193,9 +193,9 @@ var theGame = {
     		$('#theBall').css('left', objPosition.left-xMove )
     	}
     	if( yMove < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('left', objPosition.top-yMove )
+    		$('#theBall').css('top', objPosition.top-yMove )
     	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('left', objPosition.top+yMove )
+    		$('#theBall').css('top', objPosition.top+yMove )
     	}
 
     	
