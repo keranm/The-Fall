@@ -193,7 +193,7 @@ var theGame = {
 			// hide the overlay
 			$('#overlayMessage').html( '' )
 			$('#theOverlay').css('display', 'none')
-			theGame.startGame()
+			theGame.init()
 		})
 	},
 
