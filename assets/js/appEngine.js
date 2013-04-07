@@ -182,7 +182,7 @@ var theGame = {
 	showGameOver : function() {
 		$('#overlayMessage').html( messages.game_over )
 		$('#theOverlay').css('display', 'block')
-		$('.play_again').on('click', function(){ 
+		$('#overlayMessage button.play_again').on('click', function(){
 			// hide the overlay
 			$('#overlayMessage').html( '' )
 			$('#theOverlay').css('display', 'none')
