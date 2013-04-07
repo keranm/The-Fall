@@ -58,6 +58,7 @@ var appEngine = {
 
 		if(firstTime) {
 			// this is the first time
+			firstTime = false
 			// setup the messages for the init screen
 			$('#init .title').html( messages.init_title )
 			$('#init .subtitle').html( messages.init_subtitle )
@@ -218,7 +219,7 @@ var theGame = {
         	setTimeout(function(){
 	        	appEngine.hideAll()
 				appEngine.showInitScreen()
-        	}, 1000)
+        	}, 500)
 			//playGame = theGame.init()
 
         } else {
