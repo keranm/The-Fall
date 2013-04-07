@@ -182,13 +182,13 @@ var theGame = {
 	showGameOver : function() {
 		$('#overlayMessage').html( messages.game_over )
 		$('#theOverlay').css('display', 'block')
-		($'button .play_again').on('click', function(){ 
+		$('button .play_again').on('click', function(){ 
 			// hide the overlay
 			$('#overlayMessage').html( '' )
 			$('#theOverlay').css('display', 'none')
 			appEngine.showTheGame()
 		})
-	}
+	},
 
 	startGame : function() {
     	console.log('start game')
