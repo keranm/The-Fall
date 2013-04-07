@@ -216,7 +216,6 @@ var theGame = {
         	setTimeout(function(){
 	        	appEngine.hideAll()
 				appEngine.showInitScreen()
-				return false
         	}, 1000)
 
         } else {
