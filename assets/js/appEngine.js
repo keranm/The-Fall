@@ -208,10 +208,17 @@ var theGame = {
                       'Y: ' + yMove + ' '+bottomBoundary+'<br />'
 
         // if the game over?
-        if( (objPosition.top + myObj.height()) >= bottomBoundary ) {
+        if( objPosition.top >= bottomBoundary ) {
         	// game over
         	navigator.accelerometer.clearWatch(watchMove)
         	document.getElementById('gameStatus').innerHTML='Game Over'
+
+        	setTimeout(function(){
+	        	appEngine.hideAll()
+				appEngine.showInitScreen()
+				return false
+        	}, 1000)
+
         } else {
     	
 	    	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
