@@ -8,7 +8,10 @@ var width = window.innerWidth
 var height = window.innerHeight // use native JS not any plugin to get the right sizes
 var loadingOffset = 1000
 
-var audio = new Audio()
+var firstTime = true
+
+var btn_audio = new Audio()
+btn_audio.setAttribute("src","assets/audio/button_click.mp3")
 var heightOfInit = ''
 var heightOfButtonStage = ''
 
@@ -53,41 +56,45 @@ var appEngine = {
 
 	showInitScreen : function() {
 
-		// setup the messages for the init screen
-		$('#init .title').html( messages.init_title )
-		$('#init .subtitle').html( messages.init_subtitle )
-		$('#init .footer p').html( messages.init_footer )
+		if(firstTime) {
+			// this is the first time
+			// setup the messages for the init screen
+			$('#init .title').html( messages.init_title )
+			$('#init .subtitle').html( messages.init_subtitle )
+			$('#init .footer p').html( messages.init_footer )
 
-		// setup the audio
-		audio.setAttribute("src","assets/audio/button_click.mp3")
-		audio.load() // required for 'older' browsers
+			// show the screen
+			$('#init').css('display', 'block')
 
-		// show the screen
-		$('#init').css('display', 'block')
+			// set elements
+			$('#init .footer').css('top', height - $('#init .footer').height())
+			heightOfInit = $('#init .init_screen').height()
+			heightOfButtonStage =  $('#init .play_button_stage button').height()
+			$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
+			$('#init .play_button_stage button').css('width', width - 40 )
 
-		// set elements
-		$('#init .footer').css('top', height - $('#init .footer').height())
-		heightOfInit = $('#init .init_screen').height()
-		heightOfButtonStage =  $('#init .play_button_stage button').height()
-		$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
-		$('#init .play_button_stage button').css('width', width - 40 )
+			// add listeners to the buttons
+			$('#init .play_button_stage button').on('click', function() { btn_audio.play() })//document.getElementById('appAudio').play() })
+			$('#init .play_button_stage button.play').on('click', function(){ appEngine.showTheGame() })
 
-		// add listeners to the buttons
-		$('#init .play_button_stage button').on('click', function() { audio.play() })//document.getElementById('appAudio').play() })
-		$('#init .play_button_stage button.play').on('click', function(){ appEngine.showTheGame() })
+			// animate the heading up and show the play button
+			setTimeout(function() { 
+				console.log('show')
+				$('#init .init_screen').animate({
+				    top: (height/1.8) - ( heightOfInit )
+				  }, 300, "ease-out", function() {
+				    // Animation complete show the button
+				    $('#init .play_button_stage button').animate({
+					    opacity: 1
+					  }, 300, "ease-out")
+				  });
+			}, loadingOffset)
+		} else {
+			// this is the later times - the page is built, just show it
+			$('#init').css('display', 'block')
+		}
 
-		// animate the heading up and show the play button
-		setTimeout(function() { 
-			console.log('show')
-			$('#init .init_screen').animate({
-			    top: (height/1.8) - ( heightOfInit )
-			  }, 300, "ease-out", function() {
-			    // Animation complete show the button
-			    $('#init .play_button_stage button').animate({
-				    opacity: 1
-				  }, 300, "ease-out")
-			  });
-		}, loadingOffset)
+		
 	},
 
 	// function to hide every screen
@@ -95,12 +102,6 @@ var appEngine = {
 
 		$('#init').css('display', 'none')
 		$('#theGame').css('display', 'none')
-
-		// reset the game screen
-		$('#theGame').html(' ')
-
-		// make sure the buttons hare idden
-		$('#init .play_button_stage button').css('opacity', 0)
 
 		// reset vars
 		//audio = setAttribute("src", ' ')
@@ -214,11 +215,11 @@ var theGame = {
         	navigator.accelerometer.clearWatch(watchMove)
         	document.getElementById('gameStatus').innerHTML='Game Over'
 
-        	//setTimeout(function(){
-	        	//appEngine.hideAll()
-				//appEngine.showInitScreen()
-        	//}, 1000)
-			playGame = theGame.init()
+        	setTimeout(function(){
+	        	appEngine.hideAll()
+				appEngine.showInitScreen()
+        	}, 1000)
+			//playGame = theGame.init()
 
         } else {
     	
