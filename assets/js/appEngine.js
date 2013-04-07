@@ -12,7 +12,7 @@ var firstTime = true
 var debug = true
 
 var btn_audio = new Audio()
-btn_audio.setAttribute("src","assets/audio/button_click.mp3")
+//btn_audio.setAttribute("src","assets/audio/button_click.mp3")
 var heightOfInit = ''
 var heightOfButtonStage = ''
 
@@ -162,7 +162,7 @@ var theGame = {
 		$('#theOverlay').css('display', 'block')
 
 		// start the counter
-		var countdownNum = 6
+		var countdownNum = 4
 		var intrvl = setInterval(function(){
 			if(countdownNum <= 0) {
 				$('#overlayMessage').html( '' )
@@ -179,7 +179,16 @@ var theGame = {
 
 	}, // end show countdown
 
-
+	showGameOver : function() {
+		$('#overlayMessage').html( messages.game_over )
+		$('#theOverlay').css('display', 'block')
+		($'button .play_again').on('click', function(){ 
+			// hide the overlay
+			$('#overlayMessage').html( '' )
+			$('#theOverlay').css('display', 'none')
+			appEngine.showTheGame()
+		})
+	}
 
 	startGame : function() {
     	console.log('start game')
@@ -214,8 +223,9 @@ var theGame = {
         	document.getElementById('gameStatus').innerHTML='Game Over'
 
         	
-	        appEngine.hideAll()
-			appEngine.showInitScreen()
+	        //appEngine.hideAll()
+			//appEngine.showInitScreen()
+			theGame.showGameOver()
 
         } else {
     	
