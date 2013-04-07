@@ -71,7 +71,7 @@ var appEngine = {
 			$('#init .footer').css('top', height - $('#init .footer').height())
 			var heightOfInit = $('#init .init_screen').height()
 			var heightOfButtonStage =  $('#init .play_button_stage button').height()
-			$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
+			$('#init .init_screen').css('top', (height/2) - ( heightOfInit ) )
 			$('#init .play_button_stage button').css('width', width - 40 )
 
 			// add listeners to the buttons
@@ -79,6 +79,7 @@ var appEngine = {
 			$('#init .play_button_stage button.play').on('click', function(){ appEngine.showTheGame() })
 
 			// animate the heading up and show the play button
+			/*
 			setTimeout(function() { 
 				console.log('show')
 				$('#init .init_screen').animate({
@@ -90,6 +91,12 @@ var appEngine = {
 					  }, 300, "ease-out")
 				  });
 			}, loadingOffset)
+			*/
+			setTimeout(function() { 
+				$('#init .play_button_stage button').animate({
+					    opacity: 1
+					  }, 500, "ease-out")
+			}, 800)
 
 			firstTime = false
 
@@ -186,7 +193,7 @@ var theGame = {
 			// hide the overlay
 			$('#overlayMessage').html( '' )
 			$('#theOverlay').css('display', 'none')
-			appEngine.showTheGame()
+			theGame.startGame()
 		})
 	},
 
