@@ -133,6 +133,7 @@ var appEngine = {
 var theGame = {
 
 	init : function() {
+		$('#theGame').html('')
 		$('#theGame').append( '<p id="gameStatus">Waiting</p><p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
@@ -214,9 +215,10 @@ var theGame = {
         	document.getElementById('gameStatus').innerHTML='Game Over'
 
         	//setTimeout(function(){
-	        	appEngine.hideAll()
-				appEngine.showInitScreen()
+	        	//appEngine.hideAll()
+				//appEngine.showInitScreen()
         	//}, 1000)
+			playGame = theGame.init()
 
         } else {
     	
