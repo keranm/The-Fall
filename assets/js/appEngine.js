@@ -18,6 +18,7 @@ var playGame = null
 
 var ballInterval = 0
 var ballMilliSeconds = 65
+var ballMoveDistance = 1
 
 $(document).ready(function(){
 
@@ -132,7 +133,7 @@ var appEngine = {
 var theGame = {
 
 	init : function() {
-		$('#theGame').append( '<p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
+		$('#theGame').append( '<p id="gameStatus">Waiting</p><p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
 		//$('#theBall').css('top', height/2 )
@@ -142,6 +143,7 @@ var theGame = {
 		
 	},
 
+	/*
 	theBall : function() {
 
 		// where am I?
@@ -177,13 +179,14 @@ var theGame = {
                       'Ball Top ' + myPos.top + ' Ball Left '+myPos.left+'<hr />'
 		
 	},
+	*/
 
 	startGame : function() {
     	console.log('start game')
     	
         var options = { frequency: 10 } //55 }
         watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options)
-
+        document.getElementById('gameStatus').innerHTML='Playing'
         //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
 	},
@@ -203,28 +206,36 @@ var theGame = {
     	var element = document.getElementById('accelerometer')
         var theHTML = 'X: ' + xMove + ' '+rightBoundary+'<br />' +
                       'Y: ' + yMove + ' '+bottomBoundary+'<br />'
-    	
-    	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
-    		$('#theBall').css('left', objPosition.left + (xMove*-1) ) // convert to positive number
-    		theHTML += 'Move to: right '
-    	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
-    		$('#theBall').css('left', objPosition.left - xMove )
-    		theHTML += 'Move to: left '
-    	}
-    	if( yMove < 0 && objPosition.top > topBoundary ) {
-    		$('#theBall').css('top', objPosition.top - (yMove*-1) )
-    		theHTML += 'Move to: top '
-    	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
-    		$('#theBall').css('top', objPosition.top + yMove )// convert to positive number
-    		theHTML += 'Move to: bottom '
-    	} else {
-    		theHTML += 'Move to: stay put '
-    	}
 
-    	element.innerHTML = theHTML+'<hr />';
+        // if the game over?
+        if( (objPosition.top + myObj.height()) >= bottomBoundary ) {
+        	// game over
+        	navigator.accelerometer.clearWatch(watchMove)
+        	document.getElementById('gameStatus').innerHTML='Game Over'
+        } else {
     	
-    	// update the ball movement
-    	theGame.theBall()
+	    	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
+	    		$('#theBall').css('left', objPosition.left + (xMove*-1) ) // convert to positive number
+	    		theHTML += 'Move to: right '
+	    	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
+	    		$('#theBall').css('left', objPosition.left - xMove )
+	    		theHTML += 'Move to: left '
+	    	}
+	    	if( yMove < 0 && objPosition.top > topBoundary ) {
+	    		$('#theBall').css('top', objPosition.top - (yMove*-1) )
+	    		theHTML += 'Move to: top '
+	    	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
+	    		$('#theBall').css('top', objPosition.top + yMove )// convert to positive number
+	    		theHTML += 'Move to: bottom '
+	    	} else {
+	    		theHTML += 'Move to: stay put '
+	    	}
+
+	    	element.innerHTML = theHTML+'<hr />';
+	    	
+	    	// the ball needs to move down the screen all the time
+	    	$('#theBall').css('top', objPosition.top + ballMoveDistance )
+	    } // end if game over
     },
 
     onError : function() {
