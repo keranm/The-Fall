@@ -166,3 +166,42 @@ button:active {
 	top: 0;
 	left: 0;
 }
+
+
+/*
+/*    STYLES FOR THE
+/*       overlay screen
+/*                                ****/
+#theOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(117, 117, 117, 0.5);
+	text-align: center;
+
+	display: none;
+}
+
+#theOverlay #overlayMessage {
+	padding: 50px;
+	width: 80%;
+	margin: 45px auto;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+}
+
+#overlayMessage p {
+	margin: 10px auto 25px auto;
+}
+
+#overlayMessage button {
+	width: 300px;
+}
+
+#theOverlay #theCountdown {
+	font-size: 76px;
+	line-height: 82px;
+	margin-bottom: -20px;
+}

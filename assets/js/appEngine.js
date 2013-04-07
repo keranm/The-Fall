@@ -9,6 +9,7 @@ var height = window.innerHeight // use native JS not any plugin to get the right
 var loadingOffset = 1000
 
 var firstTime = true
+var debug = true
 
 var btn_audio = new Audio()
 btn_audio.setAttribute("src","assets/audio/button_click.mp3")
@@ -58,7 +59,6 @@ var appEngine = {
 
 		if(firstTime) {
 			// this is the first time
-			firstTime = false
 			// setup the messages for the init screen
 			$('#init .title').html( messages.init_title )
 			$('#init .subtitle').html( messages.init_subtitle )
@@ -90,6 +90,9 @@ var appEngine = {
 					  }, 300, "ease-out")
 				  });
 			}, loadingOffset)
+
+			firstTime = false
+
 		} else {
 			// this is the later times - the page is built, just show it
 			$('#init').css('display', 'block')
@@ -136,53 +139,47 @@ var theGame = {
 
 	init : function() {
 		$('#theGame').html('')
-		$('#theGame').append( '<p id="gameStatus">Waiting</p><p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><i id="theBall" class="icon-isight icon2x"></i>' )
+		if(debug) {
+			$('#theGame').append( '<p id="gameStatus">Waiting</p><p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><hr />' )	
+		} 
+		$('#theGame').append( '<i id="theBall" class="icon-isight icon2x"></i>' )
+		
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
 		//$('#theBall').css('top', height/2 )
 		// launch countdown window & then start game
-
-		theGame.startGame()
 		
+		theGame.showCountdown()
+		//theGame.startGame()
 	},
 
-	/*
-	theBall : function() {
+	showCountdown : function() {
+		console.log('showCountdown')
+		// append the content
+		$('#overlayMessage').html( messages.countdown )
 
-		// where am I?
-		var myHeight = $('#theBall').height()
-		var myPos = $('#theBall').position()
+		// show the overlay
+		$('#theOverlay').css('display', 'block')
 
-		// am I at the bottom?
-		if( myPos.top >= ( height - myHeight) ) {
-			// game over
-			console.log('Game over')
-			//clearInterval(ballInterval)
-			$('#theBall').remove() // take the ball off the stage
-			myHeight = 0 // reset
-			myTop = 0 // reset
-			ballInterval = 0
+		// start the counter
+		var countdownNum = 6
+		var intrvl = setInterval(function(){
+			if(countdownNum <= 0) {
+				$('#overlayMessage').html( '' )
+				$('#theOverlay').css('display', 'none')
+				clearInterval(intrvl)
+				console.log('start game')
+				theGame.startGame()
 
-			delete myHeight
-			delete myPos
+			} else {
+				$('#theCountdown').html(countdownNum)
+				countdownNum = countdownNum - 1
+			}
+		}, 500)
 
-			navigator.accelerometer.clearWatch(watchMove)
-			appEngine.hideAll()
-			appEngine.showInitScreen()
-			return true
-		} else {
-			// move me
-			console.log("move")
-			console.log(myPos.top + ' height '+ (height - myPos.top))
-			$('#theBall').css('top', myPos.top + 1)
-		}
+	}, // end show countdown
 
-		var element = document.getElementById('ballDetails')
-        element.innerHTML = 'Ball Height ' + myHeight + ' height '+ height + '<br />' +
-                      'Ball Top ' + myPos.top + ' Ball Left '+myPos.left+'<hr />'
-		
-	},
-	*/
+
 
 	startGame : function() {
     	console.log('start game')
@@ -216,11 +213,9 @@ var theGame = {
         	navigator.accelerometer.clearWatch(watchMove)
         	document.getElementById('gameStatus').innerHTML='Game Over'
 
-        	setTimeout(function(){
-	        	appEngine.hideAll()
-				appEngine.showInitScreen()
-        	}, 500)
-			//playGame = theGame.init()
+        	
+	        appEngine.hideAll()
+			appEngine.showInitScreen()
 
         } else {
     	
