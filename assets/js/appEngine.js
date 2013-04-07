@@ -213,10 +213,10 @@ var theGame = {
         	navigator.accelerometer.clearWatch(watchMove)
         	document.getElementById('gameStatus').innerHTML='Game Over'
 
-        	setTimeout(function(){
+        	//setTimeout(function(){
 	        	appEngine.hideAll()
 				appEngine.showInitScreen()
-        	}, 1000)
+        	//}, 1000)
 
         } else {
     	
