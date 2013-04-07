@@ -13,8 +13,8 @@ var debug = true
 
 var btn_audio = new Audio()
 //btn_audio.setAttribute("src","assets/audio/button_click.mp3")
-var heightOfInit = ''
-var heightOfButtonStage = ''
+//var heightOfInit = ''
+//var heightOfButtonStage = ''
 
 var watchID = null
 var watchMove = null
@@ -69,8 +69,8 @@ var appEngine = {
 
 			// set elements
 			$('#init .footer').css('top', height - $('#init .footer').height())
-			heightOfInit = $('#init .init_screen').height()
-			heightOfButtonStage =  $('#init .play_button_stage button').height()
+			var heightOfInit = $('#init .init_screen').height()
+			var heightOfButtonStage =  $('#init .play_button_stage button').height()
 			$('#init .init_screen').css('top', (height/2) - ( heightOfInit - heightOfButtonStage ) )
 			$('#init .play_button_stage button').css('width', width - 40 )
 
@@ -182,7 +182,7 @@ var theGame = {
 	showGameOver : function() {
 		$('#overlayMessage').html( messages.game_over )
 		$('#theOverlay').css('display', 'block')
-		$('button .play_again').on('click', function(){ 
+		$('.play_again').on('click', function(){ 
 			// hide the overlay
 			$('#overlayMessage').html( '' )
 			$('#theOverlay').css('display', 'none')
