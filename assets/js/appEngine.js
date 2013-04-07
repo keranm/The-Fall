@@ -9,7 +9,8 @@ var height = window.innerHeight // use native JS not any plugin to get the right
 var loadingOffset = 1000
 
 var firstTime = true
-var debug = true
+var debug = false
+var debug_local = false
 
 var btn_audio = new Audio()
 //btn_audio.setAttribute("src","assets/audio/button_click.mp3")
@@ -19,6 +20,10 @@ var btn_audio = new Audio()
 var watchID = null
 var watchMove = null
 var playGame = null
+
+var itemAdded = 0
+var itemsOnStage = new Array()
+var canAdd = true
 
 var ballInterval = 0
 var ballMilliSeconds = 65
@@ -149,12 +154,14 @@ var theGame = {
 		if(debug) {
 			$('#theGame').append( '<p id="gameStatus">Waiting</p><p id="ballDetails">Ball Details ...</p><p id="accelerometer">Waiting for accelerometer...</p><hr />' )	
 		} 
+
 		$('#theGame').append( '<i id="theBall" class="icon-isight icon2x"></i>' )
-		
+
+		theGame.addBar()
+
 		$('#theBall').css('left', ( (width/2) - $('#theBall').width() ))
 		$('#theBall').css('top', 10 )
 		//$('#theBall').css('top', height/2 )
-		// launch countdown window & then start game
 		
 		theGame.showCountdown()
 		//theGame.startGame()
@@ -187,8 +194,12 @@ var theGame = {
 	}, // end show countdown
 
 	showGameOver : function() {
+		clearInterval(window.itemAddInt)
+
 		$('#overlayMessage').html( messages.game_over )
 		$('#theOverlay').css('display', 'block')
+		itemsOnStage = null
+		itemsOnStage = new Array()
 		$('#overlayMessage button.play_again').on('click', function(){
 			// hide the overlay
 			$('#overlayMessage').html( '' )
@@ -199,9 +210,50 @@ var theGame = {
 
 	startGame : function() {
     	console.log('start game')
+
+    	window.itemAddInt = setInterval(function(){
+    		if(itemsOnStage.length <= 3) {
+    			canAdd = true
+    			theGame.addBar()
+    		}
+    	}, Math.floor((Math.random()*1500)+3000))
     	
-        var options = { frequency: 10 } //55 }
-        watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options)
+        var options = { frequency: 40 } //55 }
+        if(debug_local) {
+        	bob = setInterval(function() {
+        		var myObj = $('#theBall')
+    			var objPosition = myObj.position()
+	    		$('#theBall').css('top', objPosition.top + 1 )
+
+
+	    		$(itemsOnStage).each(function(){
+		    		var myObj = $(this)
+		    		var myID = $(this).attr('id')
+	    			var objPosition = myObj.position()
+		    		$(this).animate({
+					    top: objPosition.top - ballMoveDistance*6
+					  }, 100)
+		    		// am I off the top of the page?
+		    		if( objPosition.top < -10) {
+		    			// take it off the stage
+		    			$(this).remove() 
+		    			// remove the item
+						itemsOnStage.splice(0, 1)
+		    			
+		    		} 	
+
+		    	})
+
+				if( $.collision('#theBall,.bad,.good') ){
+					theGame.showGameOver()
+
+					clearInterval(window.bob)
+				}
+        	}, 40)
+        } else {
+        	watchMove = navigator.accelerometer.watchAcceleration(theGame.moveBall, theGame.onError, options)
+        }
+        
         document.getElementById('gameStatus').innerHTML='Playing'
         //ballInterval = setInterval(function() { theGame.theBall() }, ballMilliSeconds) 
 
@@ -235,16 +287,19 @@ var theGame = {
 			theGame.showGameOver()
 
         } else {
+
+        	// the ball needs to move down the screen all the time
+	    	$('#theBall').css('top', objPosition.top + ballMoveDistance )
     	
 	    	if( xMove < 0 && ( objPosition.left <= rightBoundary ) ) {
-	    		$('#theBall').css('left', objPosition.left + (xMove*-1) ) // convert to positive number
+	    		$('#theBall').css('left', objPosition.left + (xMove * -1) ) // convert to positive number
 	    		theHTML += 'Move to: right '
 	    	} else if( xMove > 0 && objPosition.left > leftBoundary ) {
 	    		$('#theBall').css('left', objPosition.left - xMove )
 	    		theHTML += 'Move to: left '
 	    	}
 	    	if( yMove < 0 && objPosition.top > topBoundary ) {
-	    		$('#theBall').css('top', objPosition.top - (yMove*-1) )
+	    		$('#theBall').css('top', objPosition.top - (yMove * -1) )
 	    		theHTML += 'Move to: top '
 	    	} else if(yMove > 0 && objPosition.top <= bottomBoundary ) {
 	    		$('#theBall').css('top', objPosition.top + yMove )// convert to positive number
@@ -253,17 +308,121 @@ var theGame = {
 	    		theHTML += 'Move to: stay put '
 	    	}
 
+	    	// move the items on stage
+    		var myObj = $('#theBall')
+			var objPosition = myObj.position()
+    		$('#theBall').css('top', objPosition.top + 1 )
+
+
+    		$(itemsOnStage).each(function(){
+	    		var myObj = $(this)
+	    		var myID = $(this).attr('id')
+    			var objPosition = myObj.position()
+	    		$(this).animate({
+				    top: objPosition.top - ballMoveDistance*6
+				  }, 100)
+	    		// am I off the top of the page?
+	    		if( objPosition.top < -10) {
+	    			// take it off the stage
+	    			$(this).remove() 
+	    			// remove the item
+					itemsOnStage.splice(0, 1)
+	    			
+	    		} 	
+
+	    	})
+
+			if( $.collision('#theBall,.bad,.good') ){
+				theGame.showGameOver()
+			}
+
 	    	element.innerHTML = theHTML+'<hr />';
 	    	
-	    	// the ball needs to move down the screen all the time
-	    	$('#theBall').css('top', objPosition.top + ballMoveDistance )
 	    } // end if game over
+    },
+
+
+
+		
+
+    addBar : function() {
+
+    	if(canAdd) {
+    		// add one
+    		console.log('bar_'+itemAdded)
+	    	$('#theGame').append( '<div id="bar_'+itemAdded+'" class="bar bad">&nbsp;</div>' )
+
+	    	// push it into the array
+	    	itemsOnStage.push('#bar_'+itemAdded+'')
+
+	    	// start it off the screen
+	    	$('#bar_'+itemAdded+'').css('top', height + 55) 
+
+			// how wide is this bar
+			randWidth = Math.floor((Math.random()*60)+25)
+			randWidth = (width * (randWidth/100))
+			console.log('randWidth '+randWidth)
+			$('#bar_'+itemAdded+'').css('width', Math.floor(randWidth)) 
+
+	    	// and is it left or right?
+	    	leftRight = Math.round(Math.random())
+	    	if(leftRight) {
+	    		// left
+	    		$('#bar_'+itemAdded+'').css('left', -10)
+	    	} else {
+	    		$('#bar_'+itemAdded+'').css('left', width - randWidth +10)
+	    	}
+	    	
+	    	itemAdded ++
+	    	canAdd = false
+    	}
+    	
+		
     },
 
     onError : function() {
         alert('onError!');
-    }
+    },
+
 
 
 } // end the ball
+
+
+$.collision = function(selector) {
+ 
+  var data = [];
+ 
+  $(selector).each(function(){
+    var elem    = $(this);
+    var offset  = elem.offset();
+    var width   = elem.width();
+    var height  = elem.height();
+ 
+    data.push({
+      tl: { x: offset.left, y: offset.top },
+      tr: { x: offset.left + width, y: offset.top },
+      bl: { x: offset.left, y: offset.top + height },
+      br: { x: offset.left + width, y: offset.top + height }
+    });
+  });
+ 
+  var i, l;
+ 
+  i = data.length;
+  while(i--) {
+    l = data.length;
+    while(l-- && l !== i) {
+      if (!( 
+        data[l].br.x < data[i].bl.x || 
+        data[l].bl.x > data[i].br.x || 
+        data[l].bl.y < data[i].tl.y || 
+        data[l].tl.y > data[i].bl.y 
+      )) {
+        return true;
+      }
+    }
+  }   
+  return false;
+};
 
